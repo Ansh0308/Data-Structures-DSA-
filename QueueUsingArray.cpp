@@ -14,29 +14,37 @@ class Queue{
 
     }
     void enqueue(int x){
-        if(rare==size-1){
+        
+        
+        if((rare+1)%size==front){
             cout<<"Queue overflow\n";
             return;
         }
         if(front==-1){
             front++;
         }
-        arr[++rare]=x;
+        rare=(rare+1)%size;
+        arr[rare]=x;
         cout<<x<<" enqueued\n";
 
         
     }
     void dequeue(){
+        if(front==rare){
+            front=-1;
+            rare=-1;
+        }
         if(front==-1 || front>rare){
             cout<<"Queue is empty\n";
             return;
         }
-        cout<<"dequeued "<<arr[front++];
+        cout<<"dequeued "<<arr[front];
+        front=(front+1)%size;
         
 
     }
     bool isEmpty(){
-        if(front==-1 || front>rare){
+        if(front==-1 && rare==-1){
             return true;
         }
         return false;
@@ -77,6 +85,15 @@ int main(){
     q1.enqueue(4);
     q1.enqueue(5);
     q1.enqueue(6);
+    q1.peek();
+    q1.dequeue();
+    q1.peek();
+    q1.dequeue();
+    q1.peek();
+    q1.enqueue(100);
+    q1.peek();
+    q1.enqueue(200);
+
 
 
     return 0;
